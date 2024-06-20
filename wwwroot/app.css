@@ -1,6 +1,6 @@
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #eee;
+    font-family: "Mona Sans", "MonaSansFallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    color: #ddd;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -10,6 +10,9 @@ html, body {
     background-size: cover; /
 }
 
+h1 {
+    font-weight: 700;
+}
 
 
 .blazor-error-boundary {
