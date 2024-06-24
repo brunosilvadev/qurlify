@@ -18,10 +18,19 @@ public class LinkService(HttpClient http) : ILinkService
         var response = await http.PostAsJsonAsync("c", req);
         return await response.Content.ReadAsStringAsync();
     }
+
+    public async Task<string> GetLink(string shortUrl)
+    {
+        var response = await http.GetAsync($"s?url={shortUrl}");
+        var link =  await response.Content.ReadFromJsonAsync<ShortenedLink>();
+        return link?.longUrl ?? "";
+    }
 }
 
 public interface ILinkService
 {
     Task<ShortenedLink[]> GetLinksAsync();
     Task<string> ShortenLink(string longUrl, string comment);
+
+    Task<string> GetLink(string shortUrl);
 }

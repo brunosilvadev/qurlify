@@ -5,4 +5,5 @@ public class ShortenedLink
     public string link { get; set; } = "";
     public int HitCounter { get; set; }
     public DateTime DateCreated { get; private set; } = DateTime.Now;
+    public string comment { get; set; } = "";
 }

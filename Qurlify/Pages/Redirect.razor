@@ -1,0 +1,29 @@
+@page "/r"
+@inject ILinkService linkService
+@inject NavigationManager Navigation
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        var queryParams = LinkParser.ParseQueryString(uri.ToString());
+        
+        if (queryParams.TryGetValue("u", out var shortUrl))
+        {
+            var fullUrl = await linkService.GetLink(shortUrl);
+            
+            if (!string.IsNullOrEmpty(fullUrl))
+            {
+                if (!fullUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                {
+                    fullUrl = "http://" + fullUrl;
+                }
+                Navigation.NavigateTo(fullUrl, forceLoad: true);
+            }
+            else
+            {
+                Navigation.NavigateTo("https:qurlify.me", forceLoad: true);
+            }
+        }
+    }
+}
