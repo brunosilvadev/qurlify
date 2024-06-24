@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject ILinkService linkService
 
 <PageTitle>qurlify</PageTitle>
 
@@ -13,4 +14,18 @@
 <div class="button-container">
     <button class="shorten-button">Shorten</button>
 </div>
+<ul>
+        @foreach (var link in links)
+        {
+            <li>@link.longUrl</li>
+        }
+    </ul>
 </div>
+
+@code {
+    private IEnumerable<ShortenedLink>? links = [];
+    protected override async Task OnInitializedAsync()
+    {
+        links = await linkService.GetLinksAsync();
+    }
+}
