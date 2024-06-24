@@ -2,7 +2,7 @@
     max-width: 900px; 
     margin: 0 auto; 
     padding: 0 15px; 
-    box-sizing: border-box; /
+    box-sizing: border-box;
 }
 
 .header {
@@ -12,6 +12,20 @@
     font-size: 2rem;
     font-weight: 800;
 }
+
+a {
+    color:inherit;
+    transition: color 0.3s ease;
+}
+
+a:link, a:visited {
+    color:white;
+}
+
+a:hover, a:focus, a:active{
+    color: #8A2BE2;
+}
+
 
 .page {
     position: relative;

@@ -3,29 +3,35 @@
 
 <PageTitle>qurlify</PageTitle>
 
-<div class="container">
-<h1>The social URL shortener</h1>
+@if (shortUrl == null)
+{
+    <div class="container">
+    <h1>The social URL shortener</h1>
 
-<span>Create shorter URLs that are easier to share. Add your own comment to the content you're sharing. QR codes coming soon!</span>
-</div>
-<div class="container">
-<input type="text" placeholder="Enter or paste URL here">
-<textarea placeholder="Go ahead and leave a comment. The person who opens the link will see it"></textarea>
-<div class="button-container">
-    <button class="shorten-button">Shorten</button>
-</div>
-<ul>
-        @foreach (var link in links)
-        {
-            <li>@link.longUrl</li>
-        }
-    </ul>
-</div>
+    <span>Create shorter URLs that are easier to share. Add your own comment to the content you're sharing. QR codes coming soon!</span>
+    </div>
+    <div class="container">
+    <input type="text" @bind="longUrl" placeholder="Enter or paste URL here" />
+    <textarea @bind="comment" placeholder="Go ahead and leave a comment. The person who opens the link will see it"></textarea>
+    <div class="button-container">
+        <button class="shorten-button" @onclick="ShortenLink">Shorten</button>
+    </div>
+    </div>
+}
+else
+{
+    <div class="container">
+    <span>Your link is <strong>qurlify.me/@shortUrl</strong></span>
+    </div>
+}
 
 @code {
-    private IEnumerable<ShortenedLink>? links = [];
-    protected override async Task OnInitializedAsync()
+    private string longUrl = "";
+    private string comment = "";
+    private string? shortUrl;
+
+    private async Task ShortenLink()
     {
-        links = await linkService.GetLinksAsync();
+        shortUrl = await linkService.ShortenLink (longUrl,comment);
     }
 }
